@@ -2,20 +2,14 @@
 
 try {
     $pdo = new PDO(
-        "mysql:localhost;dbname=global",
-        "root",
-        "root",
+        "mysql:host=localhost;dbname=mmarkelov",
+        "mmarkelov",
+        "neto1755",
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     $pdo->exec('SET NAMES utf8');
-    $sql = "SELECT * FROM books";
+    $sql = 'SELECT * FROM books';
 
-}
-catch (PDOException $e) {
-    echo 'Невозможно установить соединение с базой данных';
-    die;
-}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -26,7 +20,7 @@ catch (PDOException $e) {
 </head>
 
 <body>
-<div>
+  <div>
     <table>
         <thead>
         <tr>
@@ -37,8 +31,9 @@ catch (PDOException $e) {
             <th>ISBN</th>
         </tr>
         </thead>
+
         <tbody>
-        <?php foreach ($pdo->query($sql) as $row) : ?>
+          <?php foreach ($pdo->query($sql) as $row) : ?>
             <tr>
                 <td><?=$row['name']?></td>
                 <td><?=$row['author']?></td>
@@ -51,6 +46,18 @@ catch (PDOException $e) {
         </tbody>
 
     </table>
-</div>
+  </div>
 
 </body>
+
+<?php
+}  // try
+
+catch (PDOException $e) {
+    echo 'Невозможно установить соединение с базой данных' . $e->getMessage();
+    die();
+}
+
+?>
+
+
